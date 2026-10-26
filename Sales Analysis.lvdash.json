@@ -1,0 +1,375 @@
+{
+  "datasets": [
+    {
+      "name": "ab7e2b47",
+      "displayName": "gold_category_performance",
+      "config": {
+        "version": "1.1",
+        "source": "shopstream.core.gold_category_performance",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "cd4110b4",
+      "displayName": "gold_customer_ltv",
+      "config": {
+        "version": "1.1",
+        "source": "shopstream.core.gold_customer_ltv",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "2c36bdb4",
+      "displayName": "gold_daily_revenue",
+      "config": {
+        "version": "1.1",
+        "source": "shopstream.core.gold_daily_revenue",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "b9f394a5",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "daily-revenue-generated-on-platform",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2c36bdb4",
+                  "fields": [
+                    {
+                      "name": "daily(order_date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `order_date`)"
+                    },
+                    {
+                      "name": "sum(revenue)",
+                      "expression": "SUM(`revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"font-size: 18px;font-family: Cairo;\">Daily Revenue Generated on the platform</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  }
+                ]
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(order_date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "units-sold-category",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ab7e2b47",
+                  "fields": [
+                    {
+                      "name": "sum(units_sold)",
+                      "expression": "SUM(`units_sold`)"
+                    },
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"font-size: 18px;font-family: Cairo;\">Units sold in each category</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  }
+                ]
+              },
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(units_sold)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "countries-of-customers-till-date",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cd4110b4",
+                  "fields": [
+                    {
+                      "name": "country",
+                      "expression": "`country`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"font-size: 18px;font-family: Cairo;\">Countries of the customers till date</span>",
+                  "fields": []
+                }
+              },
+              "version": 1,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "choropleth-map",
+              "encodings": {
+                "region": {
+                  "regionType": "mapbox-v4-admin",
+                  "admin0": {
+                    "fieldName": "country",
+                    "type": "field",
+                    "geographicRole": "admin0-unit-code"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "overview-of-orders-referred-from-various-sources",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "cd4110b4",
+                  "fields": [
+                    {
+                      "name": "signup_channel",
+                      "expression": "`signup_channel`"
+                    },
+                    {
+                      "name": "sum(lifetime_orders)",
+                      "expression": "SUM(`lifetime_orders`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"font-size: 18px;font-family: Cairo;\">Overview of orders referred from various sources</span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "signup_channel",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(lifetime_orders)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
